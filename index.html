@@ -6,105 +6,150 @@
   <title>KakaReZa Calculate</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Arial', sans-serif;
       margin: 0;
-      background: #fdf6ee;
-      color: #333;
+      background: #fdf4ec;
+      color: #222;
+      overflow-x: hidden;
     }
+
     header {
-      padding: 1em;
-      background-color: #ff6f61;
+      background: #ff6e5f;
       color: white;
       text-align: center;
-      font-size: 1.5em;
+      padding: 1.2em;
+      font-size: 2em;
       font-weight: bold;
     }
+
     .lang-switch {
-      text-align: right;
-      padding: 0.5em 1em;
+      display: flex;
+      justify-content: center;
+      padding: 0.6em;
+      background: #fff;
     }
+
     .lang-switch button {
-      margin-left: 0.5em;
-      background: #eee;
+      font-size: 1.1em;
+      margin: 0 0.5em;
+      padding: 0.6em 1em;
       border: none;
-      padding: 0.3em 0.6em;
+      background: #f2f2f2;
+      border-radius: 5px;
       cursor: pointer;
     }
+
     .material-list {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1em;
+      flex-direction: column;
+      align-items: center;
       padding: 1em;
+      gap: 1.5em;
     }
+
     .material-card {
-      flex: 0 1 120px;
+      width: 90%;
+      max-width: 400px;
       background: #fff;
-      border-radius: 8px;
-      padding: 1em;
+      padding: 1.5em;
+      border-radius: 12px;
+      font-size: 1.8em;
       text-align: center;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      box-shadow: 0 0 12px rgba(0,0,0,0.05);
       cursor: pointer;
-      transition: transform 0.1s;
+      transition: transform 0.2s;
     }
+
     .material-card:hover {
-      transform: scale(1.05);
-      background-color: #fde9e0;
+      transform: scale(1.02);
+      background: #fff0ea;
     }
-    /* Modal styles */
+
     .modal {
       display: none;
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4);
       justify-content: center;
       align-items: center;
+      z-index: 99;
     }
+
     .modal-content {
-      background: #fff;
+      background: white;
       padding: 2em;
-      border-radius: 10px;
-      width: 300px;
-      max-width: 95%;
+      width: 90%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
       position: relative;
+      text-align: center;
     }
+
     .modal-content h2 {
-      margin-top: 0;
+      font-size: 1.8em;
+      margin-bottom: 1.4em;
     }
+
     .modal-content label,
     .modal-content input {
       display: block;
       width: 100%;
-      margin-bottom: 1em;
+      font-size: 1.3em;
+      margin: 1em 0;
     }
+
+    .modal-content input {
+      padding: 0.8em;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .modal-content input:focus {
+      border: 2px solid #ff6e5f;
+      outline: none;
+    }
+
     .modal-content button {
-      padding: 0.6em;
-      background-color: #ff6f61;
-      border: none;
+      margin-top: 1em;
+      padding: 1em;
+      font-size: 1.2em;
+      background-color: #ff6e5f;
       color: white;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
       cursor: pointer;
-      border-radius: 4px;
     }
+
     .close-btn {
       position: absolute;
-      top: 10px; right: 10px;
-      font-size: 1.2em;
+      top: 12px;
+      right: 16px;
+      font-size: 1.5em;
       cursor: pointer;
     }
+
     .result {
-      margin-top: 1em;
+      margin-top: 1.5em;
+      font-size: 2em;
       font-weight: bold;
+      color: #222;
     }
+
     .buy-btn {
-      display: inline-block;
-      margin-top: 1em;
-      padding: 0.5em 1em;
-      background-color: #0070e0;
+      display: block;
+      margin-top: 1.5em;
+      padding: 1em;
+      background-color: #005ecb;
       color: white;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      font-size: 1.1em;
     }
+
   </style>
 </head>
 <body>
@@ -118,27 +163,31 @@
   </div>
 
   <section class="material-list">
-    <div class="material-card" onclick="openCalculator('paint')">🖌️<br><span class="label" data-en="Paint" data-fa="رنگ" data-es="Pintura">Paint</span></div>
-    <div class="material-card" onclick="openCalculator('mortar')">🟫<br><span class="label" data-en="Mortar" data-fa="ملات" data-es="Mortero">Mortar</span></div>
-    <div class="material-card" onclick="openCalculator('plywood')">🪵<br><span class="label" data-en="Plywood" data-fa="تخته چندلایه" data-es="Contrachapado">Plywood</span></div>
-    <div class="material-card" onclick="openCalculator('cement')">🔲<br><span class="label" data-en="Cement Board" data-fa="صفحه سیمانی" data-es="Placa de cemento">Cement Board</span></div>
-    <!-- Add more material cards here -->
+    <div class="material-card" onclick="openCalculator('paint')">🖌️ <span class="label" data-en="Paint" data-fa="رنگ" data-es="Pintura">Paint</span></div>
+    <div class="material-card" onclick="openCalculator('mortar')">🟫 <span class="label" data-en="Mortar" data-fa="ملات" data-es="Mortero">Mortar</span></div>
+    <div class="material-card" onclick="openCalculator('plywood')">🪵 <span class="label" data-en="Plywood" data-fa="تخته چندلایه" data-es="Contrachapado">Plywood</span></div>
+    <div class="material-card" onclick="openCalculator('cement')">🔲 <span class="label" data-en="Cement Board" data-fa="صفحه سیمانی" data-es="Placa de Cemento">Cement Board</span></div>
+    <!-- Add more cards -->
   </section>
 
   <div class="modal" id="calcModal">
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal()">×</span>
-      <h2 id="calcTitle">Material</h2>
-      <label>Width (ft/meters):</label>
-      <input type="number" id="width">
-      <label>Length (ft/meters):</label>
-      <input type="number" id="length">
-      <label>Or Total Area:</label>
-      <input type="number" id="area">
-      <div id="extraInputs"></div>
-      <button onclick="calculate()">Calculate</button>
+      <h2 id="calcTitle">Material Calculator</h2>
+
+      <label>Width</label>
+      <input type="number" id="width" inputmode="decimal" placeholder="Enter width">
+
+      <label>Length</label>
+      <input type="number" id="length" inputmode="decimal" placeholder="Enter length">
+
+      <label>Or Area</label>
+      <input type="number" id="area" inputmode="decimal" placeholder="Total area (if known)">
+
+      <button onclick="calculate()">CALCULATE</button>
+
       <div class="result" id="resultText"></div>
-      <a class="buy-btn" id="buyLink" href="" target="_blank">Buy at Lowe's</a>
+      <a id="buyLink" class="buy-btn" href="#" target="_blank" style="display:none;">🛒 Buy at Lowe’s</a>
     </div>
   </div>
 
@@ -146,19 +195,21 @@
     let currentMaterial = "";
 
     const coverageData = {
-      paint: { coverage: 350, unit: "gallon", LoweURL: "https://www.lowes.com/search?searchTerm=interior+paint" },
+      paint: { coverage: 350, unit: "gallon", LoweURL: "https://www.lowes.com/search?searchTerm=paint" },
       mortar: { coverage: 12, unit: "bag", LoweURL: "https://www.lowes.com/search?searchTerm=mortar" },
       plywood: { coverage: 32, unit: "sheet", LoweURL: "https://www.lowes.com/search?searchTerm=plywood" },
-      cement: { coverage: 15, unit: "sheet", LoweURL: "https://www.lowes.com/search?searchTerm=cement+board" },
+      cement: { coverage: 15, unit: "sheet", LoweURL: "https://www.lowes.com/search?searchTerm=cement+board" }
     };
 
     function openCalculator(material) {
       currentMaterial = material;
-      document.getElementById("calcTitle").textContent = material[0].toUpperCase() + material.slice(1) + " Calculator";
+      const titleName = document.querySelector(`.material-card span[data-en][data-fa]`).getAttribute("data-en");
+      document.getElementById("calcTitle").textContent = titleName + " Calculator";
       document.getElementById("width").value = "";
       document.getElementById("length").value = "";
       document.getElementById("area").value = "";
       document.getElementById("resultText").textContent = "";
+      document.getElementById("buyLink").style.display = "none";
       document.getElementById("calcModal").style.display = "flex";
     }
 
@@ -167,25 +218,36 @@
     }
 
     function calculate() {
-      const width = parseFloat(document.getElementById("width").value || 0);
-      const length = parseFloat(document.getElementById("length").value || 0);
-      const knownArea = parseFloat(document.getElementById("area").value);
-      const area = knownArea || (width * length);
+      let width = parseFloat(document.getElementById("width").value || 0);
+      let length = parseFloat(document.getElementById("length").value || 0);
+      let area = parseFloat(document.getElementById("area").value);
+      area = area || (width * length);
+
       const data = coverageData[currentMaterial];
-      if (!data) return;
+      if (!data || isNaN(area) || area <= 0) {
+        document.getElementById("resultText").textContent = "⛔ Please enter valid numbers";
+        return;
+      }
+
       const qty = Math.ceil(area / data.coverage);
-      document.getElementById("resultText").textContent =
-        `You need: ${qty} ${data.unit}${qty > 1 ? "s" : ""} (${data.coverage} sq ft/unit)`;
+      document.getElementById("resultText").innerHTML =
+        `✅ You need: <br><strong>${qty} ${data.unit}${qty > 1 ? 's' : ''}</strong><br>(${data.coverage} per unit)`;
       document.getElementById("buyLink").href = data.LoweURL;
-      document.getElementById("buyLink").style.display = "inline-block";
+      document.getElementById("buyLink").style.display = "block";
     }
 
     function setLang(lang) {
       document.querySelectorAll('.label').forEach(el => {
         el.textContent = el.getAttribute('data-' + lang);
       });
+
+      if (lang === 'fa') {
+        document.body.style.direction = 'rtl';
+      } else {
+        document.body.style.direction = 'ltr';
+      }
     }
   </script>
+
 </body>
 </html>
-
